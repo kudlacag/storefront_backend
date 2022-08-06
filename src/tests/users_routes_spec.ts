@@ -17,19 +17,18 @@ describe("User Routes", () => {
     const creatUser = await request(server).post("/users").send({
       first_name: "smith",
       last_name: "jacson",
-      email: "smith@hotmail.com",
       password_digest: "password123",
     });
 
     expect(creatUser.status).toEqual(200);
   });
 
-  it("should return status 403", async () => {
+  it("should return status 403 showUser", async () => {
     const showUser = await request(server).get("/users/1");
     // here it has to have token in the header
     expect(showUser.status).toBe(403);
   });
-  it("should", async () => {
+  it("should send back status of 403 authentication", async () => {
     const res = await request(server)
       .get("/users/auth")
       .send({ email: "smith@hotmail.com", password_digest: "password123" });

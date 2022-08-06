@@ -1,4 +1,4 @@
-import client from '../dababase';
+import client from "../dababase";
 
 export type Orders = {
   order_id?: number;
@@ -16,7 +16,7 @@ export class OrdersStore {
   async index(): Promise<Orders[]> {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT * FROM orders';
+      const sql = "SELECT * FROM orders";
       const result = await conn.query(sql);
       conn.release();
       return result.rows;
@@ -29,7 +29,7 @@ export class OrdersStore {
     try {
       const conn = await client.connect();
       const sql =
-        'INSERT INTO orders (order_id, status, user_id) VALUES (default, $1, $2) RETURNING *';
+        "INSERT INTO orders (order_id, status, user_id) VALUES (default, $1, $2) RETURNING *";
       const result = await conn.query(sql, [o.status, o.user_id]);
       conn.release();
       return result.rows;
@@ -40,7 +40,7 @@ export class OrdersStore {
   async showUsersOrder(user_id: number) {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT * From orders WHERE user_id=$1';
+      const sql = "SELECT * From orders WHERE user_id=$1";
       const result = await conn.query(sql, [user_id]);
       conn.release();
       return result.rows;
@@ -52,7 +52,7 @@ export class OrdersStore {
   async show(id: number): Promise<Orders[]> {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT * FROM orders WHERE order_id=$1';
+      const sql = "SELECT * FROM orders WHERE order_id=$1";
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows;
@@ -67,11 +67,12 @@ export class OrdersStore {
     const { order_id, product_id } = product;
     try {
       const conn = await client.connect();
-      const sql = 'SELECT * FROM orders WHERE order_id =($1)';
+      const sql = "SELECT * FROM orders WHERE order_id =($1)";
       const result = await conn.query(sql, [order_id]);
       conn.release();
       const orders = result.rows[0];
-      if (orders.status !== 'incomplete') {
+      console.log(sql);
+      if (orders.status !== "incomplete") {
         throw new Error(
           `this order number ${product_id} is on the way, because the status is ${orders.status}`
         );
@@ -84,7 +85,7 @@ export class OrdersStore {
       const { quantity, order_id, product_id } = product;
       const conn = await client.connect();
       const sql =
-        'INSERT INTO orders_product(id, quantity, order_id, product_id) VALUES(default, $1, $2, $3) RETURNING *';
+        "INSERT INTO orders_product(id, quantity, order_id, product_id) VALUES(default, $1, $2, $3) RETURNING *";
       const result = await conn.query(sql, [quantity, order_id, product_id]);
       conn.release();
       return result.rows;

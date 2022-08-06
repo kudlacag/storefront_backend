@@ -1,60 +1,62 @@
-import { OrdersStore, Product } from '../models/orders';
+import { OrdersStore, Product } from "../models/orders";
 
 const store = new OrdersStore();
-describe('orders index testing', () => {
-  it('should have an index method defined', () => {
+describe("orders Testing", () => {
+  it("should have an index method defined", () => {
     expect(store.index).toBeDefined();
   });
 
-  it('should exist the create method', () => {
+  it("should exist the create method", () => {
     expect(store.create).toBeDefined();
   });
-  it('should exist the showUsersOrder method', () => {
+  it("should exist the showUsersOrder method", () => {
     expect(store.showUsersOrder).toBeDefined();
   });
-  it('should exist the show method', () => {
+  it("should exist the show method", () => {
     expect(store.show).toBeDefined();
   });
-  it('should exist the productToOder method', () => {
+  it("should exist the productToOder method", () => {
     expect(store.productToOrder).toBeDefined();
   });
 
-  it('should create new order', async () => {
-    const order = { status: 'incomplete', user_id: 5 };
+  it("should create new order", async () => {
+    const order = { status: "incomplete", user_id: 1 };
     const newOrder = await store.create(order);
 
     const [{ order_id, status, user_id }] = newOrder;
-    expect(typeof order_id).toBe('number');
-    expect(status).toEqual('incomplete');
-    expect(user_id).toBeCloseTo(5);
+    expect(typeof order_id).toBe("number");
+    expect(status).toEqual("incomplete");
+    expect(user_id).toBeCloseTo(1);
   });
 
-  it('should show the users order ', async () => {
-    const usersOrders = await store.showUsersOrder(5);
-    expect(usersOrders[0]).toEqual({
-      order_id: 9,
-      status: 'incomplete',
-      user_id: '5',
-    });
+  it("should show the users order ", async () => {
+    const usersOrders = await store.showUsersOrder(1);
+    expect(usersOrders[1].order_id).toBeGreaterThanOrEqual(1);
+    expect(usersOrders[1].status).toBe("incomplete");
+    expect(usersOrders[1].user_id).toEqual("1");
   });
 
-  it('should add products to joimt table orders_product', async () => {
+  it("should add products to join table orders_product", async () => {
     const addProductToOrder = {
-      quantity: '10',
-      order_id: '1',
-      product_id: '1',
+      quantity: "10",
+      order_id: "1",
+      product_id: "1",
     };
 
     const addedPruduct = await store.productToOrder(addProductToOrder);
     const [{ quantity, order_id, product_id }] = addedPruduct;
-    expect(typeof addedPruduct).toEqual('object');
+    expect(typeof addedPruduct).toEqual("object");
     expect(quantity).toEqual(10 as unknown as string);
-    expect(order_id).toEqual('1');
-    expect(product_id).toEqual('1');
+    expect(order_id).toEqual("1");
+    expect(product_id).toEqual("1");
   });
 
-  it('should return a list of orders', async () => {
+  it("should return a list of orders", async () => {
     const result = await store.index();
-    expect(result.length).toBeGreaterThanOrEqual(1);
+    expect(result[0]).toEqual({
+      order_id: 3,
+      status: "incomplete",
+      user_id: "1" as unknown as number,
+    });
   });
 });

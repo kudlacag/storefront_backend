@@ -27,8 +27,8 @@ describe("Users methods testing", () => {
     const show = await store.show(1);
     const [{ user_id, first_name, last_name, password_digest }] = show;
     expect(user_id).toEqual(1);
-    expect(first_name).toEqual("john");
-    expect(last_name).toEqual("doe");
+    expect(first_name).toEqual("smith");
+    expect(last_name).toEqual("jacson");
     expect(password_digest).not.toEqual("password123");
   });
   it("should return the show method undefined if passed wrong user_id", async () => {
