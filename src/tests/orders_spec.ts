@@ -54,7 +54,7 @@ describe("orders Testing", () => {
   it("should return a list of orders", async () => {
     const result = await store.index();
     expect(result[0]).toEqual({
-      order_id: 3,
+      order_id: 1,
       status: "incomplete",
       user_id: "1" as unknown as number,
     });

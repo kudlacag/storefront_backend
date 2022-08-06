@@ -71,7 +71,7 @@ export class OrdersStore {
       const result = await conn.query(sql, [order_id]);
       conn.release();
       const orders = result.rows[0];
-      console.log(sql);
+      console.log(orders.status);
       if (orders.status !== "incomplete") {
         throw new Error(
           `this order number ${product_id} is on the way, because the status is ${orders.status}`
@@ -88,6 +88,7 @@ export class OrdersStore {
         "INSERT INTO orders_product(id, quantity, order_id, product_id) VALUES(default, $1, $2, $3) RETURNING *";
       const result = await conn.query(sql, [quantity, order_id, product_id]);
       conn.release();
+      console.log(result);
       return result.rows;
     } catch (error) {
       throw new Error(`could not add orders_product table ${error}`);

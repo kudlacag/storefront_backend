@@ -8,7 +8,7 @@
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "migrate": "db-migrate --env test up && db-migrate up",
     "postinstall": "npx json -I -f ./node_modules/jasmine/package.json -e \"delete this.exports\"",
-    "test": "ENV=test db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
+    "test": "ENV=test db-migrate --env test up && jasmine-ts &&  db-migrate db:drop test",
     "dockerdb":"docker-compose up",
     "tsc": "tsc"
   },
