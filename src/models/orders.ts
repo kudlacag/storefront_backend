@@ -67,7 +67,7 @@ export class OrdersStore {
     const { order_id, product_id } = product;
     try {
       const conn = await client.connect();
-      const sql = "SELECT * FROM orders WHERE order_id =($1)";
+      const sql = "SELECT * FROM orders WHERE order_id =$1";
       const result = await conn.query(sql, [order_id]);
       conn.release();
       const orders = result.rows[0];
