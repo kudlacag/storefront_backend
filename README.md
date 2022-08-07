@@ -34,7 +34,7 @@ to compile to javascript run watch
 
 POSTGRES_HOST = 127.0.0.1
 POSTGRES_DB_TEST = onlinestore_test
-POSTGRES_DB = onlinestore_user
+POSTGRES_DB = onlinestore
 POSTGRES_USER = store_admine
 POSTGRES_PASSWORD = password123
 BCRYP_PASSWORD = password123

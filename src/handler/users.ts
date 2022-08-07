@@ -81,10 +81,8 @@ const authenticate = async (req: Request, res: Response) => {
 
     res.status(200).json(token);
   } catch (err) {
-    console.log(err);
     res.status(401);
     res.json(err);
-    console.log(err);
   }
 };
 const deleteUser = async (req: Request, res: Response) => {
