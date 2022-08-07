@@ -58,7 +58,6 @@ const productToOrder = async (req: Request, res: Response) => {
     res.status(200);
     res.json(createProduct);
   } catch (error) {
-    console.log(error);
     res.status(400);
     res.send(error);
   }
@@ -70,7 +69,6 @@ const show = async (req: Request, res: Response) => {
     res.status(200);
     res.json(showOrder);
   } catch (err) {
-    console.log(err);
     res.status(404);
     res.send(`something went wrong could not found ${id} : ${err}`);
   }
