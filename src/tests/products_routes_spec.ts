@@ -1,28 +1,36 @@
 import request from "supertest";
 import app from "../server";
-import { Server } from "http";
 
+const getToken = async () => {
+  const token = await request(app)
+    .get("/user/auth/1")
+    .send({ password_digest: "password123" });
+  return token.body;
+};
 describe("Test for Products routes", () => {
-  const server: Server = app.listen();
+  let token = "";
 
-  it("should return product per product_id", async () => {});
+  beforeAll(async () => {
+    token = await getToken();
+  });
+
   it("should show products per id number ", async () => {
-    const show = await request(server).get("/products/1");
-
+    const show = await request(app).get("/products/1");
     expect(show.status).toEqual(200);
   });
-  it("should send status 403 with out the a token, it will not allow to post the product", async () => {
-    // again it needs a token in the authorization
-    const addProducts = await request(server).post("/products").send({
-      name: "product one",
-      price: 5,
-    });
-    expect(addProducts.text).toBe('"Acces denied, invalid token"');
-    expect(addProducts.status).toEqual(403);
+  it("should send status 200  it will allow to post the product", async () => {
+    const addProducts = await request(app)
+      .post("/products")
+      .send({
+        name: "product one",
+        price: 5,
+      })
+      .set("authorization", `Bearer ${token}`);
+    expect(addProducts.status).toEqual(200);
   });
 
   it("should show all products ", async () => {
-    const index = await request(server).get("/products");
+    const index = await request(app).get("/products");
     expect(index.status).toEqual(200);
   });
 });

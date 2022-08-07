@@ -33,6 +33,7 @@ to compile to javascript run watch
 ### .env file variables
 
 POSTGRES_HOST = 127.0.0.1
+POSTGRES_PORT = 5432
 POSTGRES_DB_TEST = onlinestore_test
 POSTGRES_DB = onlinestore
 POSTGRES_USER = store_admine

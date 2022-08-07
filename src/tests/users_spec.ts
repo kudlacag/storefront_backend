@@ -10,7 +10,6 @@ describe("Users methods testing", () => {
     const newUser = await store.create({
       first_name: "john",
       last_name: "doe",
-
       password_digest: "password123",
     });
 
