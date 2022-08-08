@@ -23,7 +23,7 @@ describe("Test for Products routes", () => {
       .post("/products")
       .send({
         name: "product one",
-        price: 5,
+        price: 150,
       })
       .set("authorization", `Bearer ${token}`);
     expect(addProducts.status).toEqual(200);
